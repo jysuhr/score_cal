@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ResultView: View {
-    @Binding var students: [(name: String, score: String)]
+//    @Binding var students: [(name: String, score: String)] // 3.0삭제
+    @Binding var resultList: [(rank: Int, name: String, score: String, grade: String, percent: String)]
     
     var body: some View {
         NavigationView {
@@ -17,7 +18,7 @@ struct ResultView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 0) {
                     RIndex()
-                    RScroll(students: $students)
+                    RScroll(resultList: $resultList)
                     Buttons()
                     Spacer()
                 }
@@ -47,13 +48,20 @@ struct RIndex: View {
 }
 
 struct RScroll: View {
-    @Binding var students: [(name: String, score: String)]
+//    @Binding var students: [(name: String, score: String)] //3.0삭제
+    @Binding var resultList: [(rank: Int, name: String, score: String, grade: String, percent: String)]
     
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                ForEach(0..<students.count, id: \.self) { index in
-                    RStudent(rank: 1, name: students[index].name, score: students[index].score, grade: 1, percent: 0.01)
+                ForEach(0..<resultList.count, id: \.self) { index in
+                    RStudent(
+                        rank: resultList[index].rank,
+                        name: resultList[index].name,
+                        score: resultList[index].score,
+                        grade: resultList[index].grade,
+                        percent: resultList[index].percent
+                    )
                 }
             }
         }
@@ -64,8 +72,8 @@ struct RStudent: View {
     @State var rank: Int
     @State var name: String
     @State var score: Any
-    @State var grade: Int
-    @State var percent: Double
+    @State var grade: Any
+    @State var percent: Any
     
     var body: some View {
         ZStack {
@@ -92,7 +100,8 @@ struct RStudent: View {
                 Spacer()
             }
             HStack(spacing: 0) {
-                Text(String(format: "%.2f", percent))
+//                Text(String(format: "%.2f", percent))
+                Text("\(percent)")
                     .font(.system(size: 15))
                     .padding(.leading, 335)
                 Spacer()

@@ -147,11 +147,15 @@ struct StudentInput: View {
 struct CalButton: View {
     @State private var isCal: Bool = false
     @Binding var students: [(name: String, score: String)]
+    @State private var result: [(rank: Int, name: String, score: String, grade: String, percent: String)] = [] //3.0삭제
     
     var body: some View {
         HStack(spacing: 0) {
             Button(action: {
-                submitScores()
+                var calculator = CalculatorModel(students: $students)
+                let calculatedResult = calculator.calculate()
+                result = calculatedResult
+                resultCal(wak: result) // 3.0 삭제
                 isCal = true
             }) {
                 ZStack {
@@ -165,21 +169,16 @@ struct CalButton: View {
                 }
             }
             
-            NavigationLink(destination: ResultView(students: $students), isActive: $isCal) {
+            NavigationLink(destination: ResultView(resultList: $result), isActive: $isCal) {
                 EmptyView()
             }
         }
     }
     
-    // 입력된 이름과 점수를 추출하는 함수
-    func submitScores() {
-        // TODO: ResultView로 데이터 넘겨주어야 함
-        for student in students {
-            if let score = Int(student.score) {
-                print("학생 이름: \(student.name), 점수: \(score), 총 학생수: \(students.count)")
-            } else {
-                print("학생 이름: \(student.name), 잘못된 점수 입력")
-            }
+    // 단순 로그 확인용 3.0 삭제
+    func resultCal(wak: [(rank: Int, name: String, score: String, grade: String, percent: String)]) {
+        for student in wak {
+            print(student)
         }
     }
 }
