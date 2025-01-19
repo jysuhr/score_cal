@@ -16,17 +16,12 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                Color.white
-                    .edgesIgnoringSafeArea(.all)
-                
-                VStack(spacing: 0) {
-                    Title()
-                    ListTitle()
-                    ScoreInput(students: $students)
-                    CalButton(students: $students)
-                    Spacer()
-                }
+            VStack(spacing: 0) {
+                Title()
+                ListTitle()
+                ScoreInput(students: $students)
+                CalButton(students: $students)
+                Spacer()
             }
         }
     }
@@ -38,6 +33,7 @@ struct Title: View {
     var body: some View {
         HStack(spacing: 0) {
             Text("점수 계산기")
+                .foregroundColor(.primary)
                 .font(.system(size: 36, weight: .bold))
             Spacer()
             Button(action: {
@@ -45,7 +41,7 @@ struct Title: View {
                 isLinkActive = true
             }) {
                 Image(systemName: "info.circle")
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .font(.system(size: 20))
             }
             .padding(.horizontal, 12)
@@ -147,7 +143,7 @@ struct StudentInput: View {
 struct CalButton: View {
     @State private var isCal: Bool = false
     @Binding var students: [(name: String, score: String)]
-    @State private var result: [(rank: Int, name: String, score: String, grade: String, percent: String)] = [] //3.0삭제
+    @State private var result: [(rank: Int, name: String, score: String, grade: String, percent: String)] = []
     
     var body: some View {
         HStack(spacing: 0) {
@@ -155,7 +151,6 @@ struct CalButton: View {
                 var calculator = CalculatorModel(students: $students)
                 let calculatedResult = calculator.calculate()
                 result = calculatedResult
-                resultCal(wak: result) // 3.0 삭제
                 isCal = true
             }) {
                 ZStack {
@@ -172,13 +167,6 @@ struct CalButton: View {
             NavigationLink(destination: ResultView(resultList: $result), isActive: $isCal) {
                 EmptyView()
             }
-        }
-    }
-    
-    // 단순 로그 확인용 3.0 삭제
-    func resultCal(wak: [(rank: Int, name: String, score: String, grade: String, percent: String)]) {
-        for student in wak {
-            print(student)
         }
     }
 }

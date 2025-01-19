@@ -12,7 +12,6 @@ struct StudentScore_calculatorApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-//            ContentView()
         }
     }
 }

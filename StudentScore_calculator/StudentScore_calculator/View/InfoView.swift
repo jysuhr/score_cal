@@ -9,11 +9,7 @@ import SwiftUI
 
 struct InfoView: View {
     var body: some View {
-        ZStack {
-            Color.white
-                .edgesIgnoringSafeArea(.all)
-            InfoText()
-        }
+        InfoText()
     }
 }
 
@@ -43,6 +39,13 @@ struct InfoText: View {
 
         (학생 순위) / (전체 학생 수)
         *소숫점 3자리에서 반올림
+        
+        
+        - 오류
+        
+        등급이 99로 나온다면 오류입니다.
+        등급이 F로 나온다면 점수가 입력되지 않았을 경우입니다.
+        
         """)
     }
 }

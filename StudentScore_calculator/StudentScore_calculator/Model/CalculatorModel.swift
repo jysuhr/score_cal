@@ -43,8 +43,10 @@ struct CalculatorModel {
             let grade = String(assignGrade(for: percent).rawValue)
             
             // 결과 반환
-            return (rank: rank, name: student.name, score: String(format: "%.2f", score), grade: grade, percent: formattedPercent)
+            return (rank: rank, name: student.name, score: String(format: "%.1f", score), grade: grade, percent: formattedPercent)
         }
+        // rank에 따라 내림차순으로 정렬
+        resultList.sort { $0.rank < $1.rank }
         
         return resultList
     }
@@ -68,7 +70,7 @@ struct CalculatorModel {
             return .seventh
         case 89..<96:
             return .eighth
-        case 96..<100:
+        case 96..<101:
             return .ninth
         default:
             return .NA
@@ -87,5 +89,5 @@ enum Grade: Int {
     case seventh
     case eighth
     case ninth
-    case NA
+    case NA = 99
 }

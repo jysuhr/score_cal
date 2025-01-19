@@ -8,20 +8,15 @@
 import SwiftUI
 
 struct ResultView: View {
-//    @Binding var students: [(name: String, score: String)] // 3.0삭제
     @Binding var resultList: [(rank: Int, name: String, score: String, grade: String, percent: String)]
     
     var body: some View {
         NavigationView {
-            ZStack {
-                Color.white
-                    .edgesIgnoringSafeArea(.all)
-                VStack(spacing: 0) {
-                    RIndex()
-                    RScroll(resultList: $resultList)
-                    Buttons()
-                    Spacer()
-                }
+            VStack(spacing: 0) {
+                RIndex()
+                RScroll(resultList: $resultList)
+                Buttons()
+                Spacer()
             }
         }
         .navigationTitle("결과")
@@ -48,7 +43,6 @@ struct RIndex: View {
 }
 
 struct RScroll: View {
-//    @Binding var students: [(name: String, score: String)] //3.0삭제
     @Binding var resultList: [(rank: Int, name: String, score: String, grade: String, percent: String)]
     
     var body: some View {
@@ -80,13 +74,13 @@ struct RStudent: View {
             HStack(spacing: 0) {
                 Text("\(rank)")
                     .font(.system(size: 15))
-                    .padding(.leading, 53)
+                    .padding(.leading, 45)
                 Spacer()
             }
             HStack(spacing: 0) {
                 Text("\(name)")
                     .font(.system(size: 15))
-                    .padding(.leading, 112)
+                    .padding(.leading, 110)
                 Spacer()
             }
             
@@ -96,14 +90,13 @@ struct RStudent: View {
             HStack(spacing: 0) {
                 Text("\(grade)")
                     .font(.system(size: 15))
-                    .padding(.leading, 271)
+                    .padding(.leading, 265)
                 Spacer()
             }
             HStack(spacing: 0) {
-//                Text(String(format: "%.2f", percent))
                 Text("\(percent)")
                     .font(.system(size: 15))
-                    .padding(.leading, 335)
+                    .padding(.leading, 320)
                 Spacer()
             }
         }
@@ -149,8 +142,3 @@ struct Buttons: View {
         }
     }
 }
-
-
-//#Preview {
-//    ResultView()
-//}
